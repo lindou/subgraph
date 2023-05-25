@@ -1,0 +1,22 @@
+[
+    {
+        "id": 93,
+        "model": "Note 2",
+        "carrier": "AT&T"
+    },
+    {
+        "id": 111,
+        "model": "iPhone 11",
+        "carrier": "Sprint"
+    },
+    {
+        "id": 156,
+        "model": "iPhone 12",
+        "carrier": "Verizon"
+    },
+    {
+        "id": 501,
+        "model": "Galaxy S20",
+        "carrier": "T-Mobile"
+    }
+]

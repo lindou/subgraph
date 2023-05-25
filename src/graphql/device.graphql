@@ -1,0 +1,132 @@
+extend schema @link(url: "https://specs.apollo.dev/federation/v2.0", import: ["@key"])
+
+type Query {
+  deviceByID(id: ID!): Device
+  deviceByDetails(input: DeviceByDetailsInput!): Device
+  devices(searchParams: String!): [Device]!
+}
+
+# type Mutation {
+#   deviceAdd(input: AddDeviceInput): AddDeviceResponse
+# }
+
+ enum ScreenBehaviors {
+    NotSet
+    Clock 
+    Locked
+    Dialpad
+    HomeScreen
+    BlankScreen
+    Other
+}
+
+ enum LocationDirection {
+    NotSet 
+    Top 
+    Bottom
+    Left 
+    Right
+}
+
+ enum ModelTypes {
+    NotSet 
+    Clamshell 
+    Slider
+    Onepiec
+    Other 
+}
+
+scalar DateTime
+
+type Device @key(fields: "manufacturer model carrier capacity") {
+  "Device ID as defined by ECOATM DB"
+  id: ID!
+  "Foreign key for BrandCategory table"
+  brandCategoryId: ID
+  "Foreign key for OS Tabe"
+  osid: ID
+  "Foreign key for cable table"
+  cableid: ID
+  "Descritption of the device: e.g. Apple iPhone 12 64GB Unlocked"
+  description: String!
+  "A-Number or Model Number for a device depending on manufacturer"
+  partnumber: String!
+  "Normalized name of the device"
+  partname: String!
+  "Is the phone actively being accepted at trade in"
+  active: Boolean!
+  "Encoded buffer for image display"
+  image: String
+  "Street date of phone release"
+  releasedatetime: DateTime
+  "Date device was added to the catalog"
+  addeddatetime: DateTime!
+  "EcoID of a device"
+  ecoATMCode: Int
+  "Weight of the device"
+  weight: Int!
+  "Unit of measure for phone weight"
+  weightUnits: String
+  "Height of device (add unit of measure)"
+  height: Int!
+  "Width of device (add unit of meaure)"
+  width: Int!
+  "Depth of device (add unit of measure)"
+  depth: Int!
+  "Unit of measure for width, height and depth"
+  dimensionUnits: String
+  reviewImage: Boolean
+  "Foreign key for Brand table"
+  brandID: ID
+  "Foreign key for Category table"
+  categoryId: ID
+  "Foreign key for VisionGroup table"
+  visionGroupId: ID
+  "Foreign key for DeviceGroup"
+  deviceGroupId: ID
+  "Style of device"
+  modelType: ModelTypes
+  "Direction device opens (if applicable)"
+  openDirection: LocationDirection
+  "Location on device connection is located"
+  connectorLocation: LocationDirection
+  numbersAlwaysVisible: Boolean
+  defaultScreenBehavior: ScreenBehaviors
+  cableConfirmed: Boolean
+  "Whether or not the connection port is covered"
+  usbPortCover: Boolean
+  codeToDisplayGid: ID
+  "Last time record was updated"
+  updatedOn: DateTime
+  valueFlow: String
+  "Is this record the base model of the device"
+  isBaseModel: Boolean!
+  "Device name"
+  name: String @deprecated(reason: "Replaced with description")
+  "Manfacturer of the device (from Brand table)"
+  manufacturer: String!
+  "Model of device (from DeviceGroup table)"
+  model: String!
+  "Storage capacity of device (from DeviceSize table)"
+  capacity: String!
+  "Cell carrier device is linked to (from DeviceCarrier table)"
+  carrier: String!
+}
+
+# TODO: Determine add device input requirements
+# input AddDeviceInput {
+# }
+
+input DeviceByDetailsInput{
+  manufacturer: String!
+  model: String!
+  capacity: String!
+  carrier: String!
+}
+
+# type AddDeviceResponse {
+#   success: Boolean
+#   data: Device
+#   message: String
+#   code: Int
+# }

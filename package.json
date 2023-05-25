@@ -1,0 +1,40 @@
+{
+  "name": "eco-device-subgraph",
+  "version": "1.0.8",
+  "description": "Device subgraph",
+  "private": "true",
+  "main": "app.js",
+  "scripts": {
+    "lint": "eslint .",
+    "prettier": "prettier \"./**/*.ts\" --write",
+    "build": "npm run clean && node esbuild.config.js && cp src/graphql/device.graphql dist",
+    "clean": "rm -rf ./dist"
+  },
+  "_moduleAliases": {
+    "@lib": "lib"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.92",
+    "@types/jest": "^27.4.0",
+    "@types/node": "^17.0.13",
+    "esbuild-jest": "^0.5.0",
+    "jest": "^27.5.0",
+    "rimraf": "^4.1.2",
+    "ts-node": "^10.4.0",
+    "ts-node-dev": "^2.0.0"
+  },
+  "dependencies": {
+    "@apollo/datasource-rest": "^5.0.2",
+    "@apollo/server": "^4.4.0",
+    "@apollo/subgraph": "^2.3.2",
+    "@as-integrations/aws-lambda": "^2.0.0",
+    "datadog-lambda-js": "^7.91.0",
+    "dd-trace": "^3.20.0",
+    "dotenv": "^16.0.3",
+    "graphql": "^16.6.0",
+    "graphql-scalars": "^1.20.4",
+    "graphql-tag": "^2.12.6",
+    "module-alias": "^2.2.2",
+    "pino": "^8.10.0"
+  }
+}
